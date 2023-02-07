@@ -1,0 +1,47 @@
+<!-- form that has input field named command, a button and and text area for output -->
+<html>
+    <head>
+        <script>
+            // Get the input field
+        var input = document.getElementById("command");
+
+        // Execute a function when the user presses a key on the keyboard
+        input.addEventListener("keypress", function(event) {
+        // If the user presses the "Enter" key on the keyboard
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            // Trigger the button element with a click
+            document.getElementById("execute").click();
+        }
+});
+            // send ajax command to server
+            function sendCommand() {
+                var command = document.getElementById('command').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "execute_command", true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        document.getElementsByTagName("textarea")[0].value = xhr.responseText;
+                    }
+                }
+                xhr.send("command=" + command);
+            }
+        </script>
+    </head>
+<body background="static/matrix.jpg">
+<center>
+    <b></b><h1 style="color:white;">DNS Lookup</h1></b>
+    <h1 style="color:white;">Please specify hostname to check</h3>
+<textarea rows="20" cols="80">
+
+</textarea>
+<br><br>
+<input type="text" name="command" size="50" id="command" value="www.google.com">
+<input type="button" value="Execute" onclick="javascript:sendCommand();" id="execute">
+
+
+</center>
+
+</html>
