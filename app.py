@@ -242,13 +242,14 @@ def execute_command():
             out = "Timeout reached!\n"
     # convert tabs to spaces
     buff = ''
-
-    for b in out:
-        if b == '\t':
-            buff += '    '
-        else:
-            buff += chr(b)
-
+    try:
+        for b in out:
+            if b == '\t':
+                buff += '    '
+            else:
+                buff += chr(b)
+    except:
+        buff = 'Error'
 
     out = f"{banner}{command_line}{buff}"
     return out
